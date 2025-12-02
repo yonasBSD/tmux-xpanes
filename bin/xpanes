@@ -199,6 +199,8 @@ OPTIONS:
                                ev   even-vertical
                                mh   main-horizontal
                                mv   main-vertical
+                               mhm  main-horizontal-mirror (tmux 3.5+)
+                               mvm  main-vertical-mirror (tmux 3.5+)
   -n <number>                  Set the maximum number of <argument> taken for each pane.
   -r                           Reuse the existing panes, or create then in the current active window.
   -s                           Speedy mode: Run command without opening an interactive shell.
@@ -1831,12 +1833,14 @@ xpns_layout_short2long() {
     -e 's/^ev$/even-vertical/' \
     -e 's/^mh$/main-horizontal/' \
     -e 's/^mv$/main-vertical/' \
+    -e 's/^mhm$/main-horizontal-mirror/' \
+    -e 's/^mvm$/main-vertical-mirror/' \
     -e ';'
 }
 
 xpns_is_valid_layout() {
   local _layout="${1-}"
-  local _pat='^(tiled|even-horizontal|even-vertical|main-horizontal|main-vertical)$'
+  local _pat='^(tiled|even-horizontal|even-vertical|main-horizontal|main-vertical|main-horizontal-mirror|main-vertical-mirror)$'
   if ! [[ $_layout =~ $_pat ]]; then
     xpns_log "error" "Invalid layout '${_layout}'."
     exit ${XP_ELAYOUT}
