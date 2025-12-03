@@ -168,6 +168,8 @@ OPTIONS:
                                ev   even-vertical
                                mh   main-horizontal
                                mv   main-vertical
+                               mhm  main-horizontal-mirror (tmux 3.5+)
+                               mvm  main-vertical-mirror (tmux 3.5+)
   -n <number>                  Set the maximum number of <argument> taken for each pane.
   -r                           Create or reuse the existing panes.
   -s                           Speedy mode: Run command without opening an interactive shell.
