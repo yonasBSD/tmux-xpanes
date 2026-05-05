@@ -1581,7 +1581,7 @@ xpns_execution() {
 
   if [[ ${XP_OPT_REUSE} -eq 1 ]]; then
     _window_name="$( ${TMUX_XPANES_EXEC} display -p -F "#{window_id}")"
-    _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l)"
+    _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l | tr -dc '0-9')"
     _pane_base_index=$(($(${TMUX_XPANES_EXEC} display -p -F "#{pane_index}") + 1))
     _pane_active_pane_id=$(${TMUX_XPANES_EXEC} display -p -F "#{pane_id}")
 
@@ -1598,7 +1598,7 @@ xpns_execution() {
     # Reuse existing window name
     # tmux 1.6 does not support -F option
     _window_name="$( ${TMUX_XPANES_EXEC} display -p -F "#{window_id}")"
-    _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l)"
+    _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l | tr -dc '0-9')"
     _pane_base_index=$((_pane_base_index + _pane_count - 1))
     _pane_active_pane_id=$(${TMUX_XPANES_EXEC} display -p -F "#{pane_id}")
   elif [[ ${XP_OPT_REUSE} -eq 0 ]]; then
@@ -2046,7 +2046,7 @@ xpns_parse_options() {
         # Reusing the panes: if there's only 1 pane, behave like -x
         # This allows to run -r to create the panes and then repeatedly to reuse
         # those panes.
-        _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l)"
+        _pane_count="$( ${TMUX_XPANES_EXEC} list-panes | wc -l | tr -dc '0-9')"
         if [[ ${_pane_count} -eq 1 ]]; then
           XP_OPT_EXTRA=1
           XP_OPT_USE_PRESET_LAYOUT=1 ## Layout presets must be used with -x
